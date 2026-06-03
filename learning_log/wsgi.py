@@ -14,3 +14,19 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'learning_log.settings')
 
 application = get_wsgi_application()
+
+# --- TEMPORARY SUPERUSER CREATION ---
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+username = "ll_admin"
+email = "admin@example.com"
+password = "adminpassword123"
+
+if not User.objects.filter(username=username).exists():
+    User.objects.create_superuser(username, email, password)
+    print("Superuser ll_admin created on startup.")
+else:
+    print("Superuser ll_admin already exists.")
+# --- END TEMPORARY BLOCK ---
